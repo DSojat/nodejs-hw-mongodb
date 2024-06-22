@@ -23,7 +23,7 @@ const setupServer = () => {
   server.get('/contacts', async (req, res) => {
     const contacts = await getAllContacts();
 
-    res.json({
+    res.status(200).json({
       status: 200,
       message: 'Successfully found contacts!',
       data: contacts,
@@ -36,7 +36,7 @@ const setupServer = () => {
 
     // Відповідь, якщо контакт не знайдено
     if (!contact) {
-      res.json({
+      res.status(404).json({
         status: 404,
         message: 'Contact not found',
       });
@@ -44,7 +44,7 @@ const setupServer = () => {
     }
 
     // Відповідь, якщо контакт знайдено
-    res.json({
+    res.status(200).json({
       status: 200,
       message: `Successfully found contact with id ${contactId}!`,
       data: contact,
@@ -52,18 +52,20 @@ const setupServer = () => {
   });
 
   server.use('*', (req, res, next) => {
-    res.json({
+    res.status(404).json({
       status: 404,
       message: 'Not found',
     });
+    next();
   });
 
   server.use((err, req, res, next) => {
-    res.json({
+    res.status(500).json({
       status: 500,
       message: 'Something went wrong',
       error: err.message,
     });
+    next();
   });
 
   server.listen(PORT, () => {
