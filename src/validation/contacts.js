@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import { typeList } from '../constants/contacts-constants.js';
 
 // Оголошення схеми з кастомізованими повідомленнями
 export const createContactSchema = Joi.object({
@@ -16,7 +17,7 @@ export const createContactSchema = Joi.object({
   }),
   email: Joi.string().email(),
   isFavourite: Joi.boolean(),
-  contactType: Joi.string().valid('work', 'home', 'personal'),
+  contactType: Joi.string().valid(...typeList),
 });
 
 export const updateContactSchema = Joi.object({
@@ -32,5 +33,5 @@ export const updateContactSchema = Joi.object({
   }),
   email: Joi.string().email(),
   isFavourite: Joi.boolean(),
-  contactType: Joi.string().valid('work', 'home', 'personal'),
+  contactType: Joi.string().valid(...typeList),
 });
