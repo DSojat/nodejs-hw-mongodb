@@ -1,6 +1,7 @@
 import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import { env } from './utils/env.js';
 import router from './routers/index.js'; // Імпортуємо роутер
 import { errorHandler } from './middlewares/errorHandler.js';
@@ -27,6 +28,8 @@ const setupServer = () => {
   server.use('*', notFoundHandler);
 
   server.use(errorHandler);
+
+  server.use(cookieParser());
 
   server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
