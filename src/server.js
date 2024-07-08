@@ -2,7 +2,7 @@ import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
 import { env } from './utils/env.js';
-import { default as contactsRouter } from './routers/contacts.js'; // Імпортуємо роутер
+import router from './routers/index.js'; // Імпортуємо роутер
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 
@@ -22,7 +22,7 @@ const setupServer = () => {
     })
   );
 
-  server.use(contactsRouter); // Додаємо роутер до server як middleware
+  server.use(router); // Додаємо роутер до server як middleware
 
   server.use('*', notFoundHandler);
 
