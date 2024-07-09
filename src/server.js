@@ -14,6 +14,7 @@ const setupServer = () => {
 
   server.use(express.json());
   server.use(cors());
+  server.use(cookieParser());
 
   server.use(
     pino({
@@ -28,8 +29,6 @@ const setupServer = () => {
   server.use('*', notFoundHandler);
 
   server.use(errorHandler);
-
-  server.use(cookieParser());
 
   server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

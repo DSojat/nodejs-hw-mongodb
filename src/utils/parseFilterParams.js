@@ -5,7 +5,7 @@ const parseBoolean = value => {
 
   if (!['true', 'false'].includes(value)) return;
 
-  const parsedValue = value === 'false' ? Boolean(false) : Boolean(true);
+  const parsedValue = value === 'true';
 
   return parsedValue;
 };

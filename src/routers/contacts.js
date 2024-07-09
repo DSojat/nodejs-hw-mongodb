@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import {
-  getContactsController,
-  getContactByIdController,
+  getAllContactsController,
+  getContactController,
   createContactController,
   patchContactController,
   deleteContactController,
@@ -17,9 +17,11 @@ import { authenticate } from '../middlewares/authenticate.js';
 
 const router = Router();
 
-router.get('/', ctrlWrapper(getContactsController));
+router.use(authenticate);
 
-router.get('/:contactId', isValidId, ctrlWrapper(getContactByIdController));
+router.get('/', ctrlWrapper(getAllContactsController));
+
+router.get('/:contactId', isValidId, ctrlWrapper(getContactController));
 
 router.post(
   '/',
@@ -35,9 +37,5 @@ router.patch(
 );
 
 router.delete('/:contactId', isValidId, ctrlWrapper(deleteContactController));
-
-router.use(authenticate);
-
-router.get('/', ctrlWrapper(getContactsController));
 
 export default router;
