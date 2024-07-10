@@ -52,16 +52,12 @@ export const createContact = async payload => {
   return contact;
 };
 
-export const updateContact = async (contactId, payload, options = {}) => {
-  const rawResult = await ContactsModel.findOneAndUpdate(
-    { _id: contactId },
-    payload,
-    {
-      new: true,
-      includeResultMetadata: true,
-      ...options,
-    }
-  );
+export const updateContact = async (filter, payload, options = {}) => {
+  const rawResult = await ContactsModel.findOneAndUpdate(filter, payload, {
+    new: true,
+    includeResultMetadata: true,
+    ...options,
+  });
 
   if (!rawResult || !rawResult.value) return null;
 
@@ -71,10 +67,8 @@ export const updateContact = async (contactId, payload, options = {}) => {
   };
 };
 
-export const deleteContact = async contactId => {
-  const contact = await ContactsModel.findOneAndDelete({
-    _id: contactId,
-  });
+export const deleteContact = async filter => {
+  const contact = await ContactsModel.findOneAndDelete(filter);
 
   return contact;
 };

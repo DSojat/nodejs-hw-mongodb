@@ -36,7 +36,6 @@ export const getAllContactsController = async (req, res) => {
 export const getContactController = async (req, res, next) => {
   const { _id: userId } = req.user;
   const { contactId } = req.params;
-  console.log(contactId);
   const contact = await getContact({ _id: contactId, userId });
 
   // Відповідь, якщо контакт не знайдено
