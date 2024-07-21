@@ -7,6 +7,7 @@ import router from './routers/index.js'; // Імпортуємо роутер
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { UPLOAD_DIR } from './constants/index.js';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 const PORT = Number(env('PORT', '3000'));
 
@@ -28,6 +29,8 @@ const setupServer = () => {
   server.use(router); // Додаємо роутер до server як middleware
 
   server.use('/uploads', express.static(UPLOAD_DIR));
+
+  server.use('/api-docs', swaggerDocs());
 
   server.use('*', notFoundHandler);
 
